@@ -1,8 +1,9 @@
 package com.example.assignment;
 
 //Importerat paket
+
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 
@@ -28,8 +29,7 @@ public class BlogController {
         latestBlogID++;
         blog.setId(latestBlogID);
         blogArray.add(blog);
-        blog.setDate(LocalDate.now()); //Denna rad är till för dagens datum.
-        System.out.println("Lade till en blogginlägg: " + blog.getText() + " Datum: " +blog.getDate());
+        System.out.println("Lade till en blogginlägg med titel: " + blog.getTitle() + blog.getText() + " Datum: " + blog.getDate());
         return blog;
     }
 
@@ -60,8 +60,8 @@ public class BlogController {
 
 
     //Metod för att radera allt i listan
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public void delete() {
+    @RequestMapping(value = "clear", method = RequestMethod.DELETE)
+    public void clearAllBlogs() {
         blogArray.clear();
         System.out.println("Alla blogginlägg i listan är nu borttagna");
     }
@@ -97,12 +97,16 @@ public class BlogController {
             blogToUpdate.setText(blogChanges.getText());
         }
 
+        if (blogChanges.getTitle() != null) {
+            blogToUpdate.setTitle(blogChanges.getTitle());
+        }
+
+        if (blogChanges.getDate() != null) {
+            blogToUpdate.setDate(blogChanges.getDate());
+        }
+
         specificBlog(id);
 
         return blogToUpdate;
     }
-
-
-
 }
-

@@ -21,10 +21,10 @@ _Bocka för med ett **x** när du
   - [x] /api/v1/blog/create – Lägg till ett nytt inlägg
   - [x] Fler får läggas till om du känner ett behov av det
   - [x] Varje förfrågan måste använda en lämplig HTTP-metod (GET, POST, PATCH et cetera)
-  - [ ] Din kod ska sparas i versionhantering med Git
+  - [x] Din kod ska sparas i versionhantering med Git
 
 #### Klientkomponenten:
-- [ ] Klientkomponenten ska vara ett textbaserat gränssnitt (CLI)
+- [x] Klientkomponenten ska vara ett textbaserat gränssnitt (CLI)
 - [ ] Användaren ska kunna lista/lägga till/redigera/ta bort blogginlägg via API-förfrågningar till serverkomponenten
 - [ ] Användaren ska kunna lista alla inlägg (ID och titel visas)
 - [ ] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet

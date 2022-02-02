@@ -1,33 +1,37 @@
 package com.example.assignment;
 
 
-import java.time.LocalDate;
-
-    //Här skapar vi attributer
-    public class Blog {
-        private int id;
-        private LocalDate date;
-        private String text;
+//Här skapar vi attributer
+public class Blog {
+    private int id;
+    private String title;
+    private String date;
+    private String text;
 
     //Konstruktorer
 
-    public Blog() {}
+    public Blog() {
+    }
 
     public Blog(int id,
-                LocalDate date,
+                String date,
+                String title,
                 String text) {
         this.id = id;
+        this.title = title;
         this.date = date;
         this.text = text;
     }
 
-    public Blog(LocalDate date,
+    public Blog(String date,
+                String title,
                 String text) {
         this.date = date;
+        this.title = title;
         this.text = text;
     }
 
-        //Getters & Setters
+    //Getters & Setters
     public int getId() {
         return id;
     }
@@ -36,11 +40,19 @@ import java.time.LocalDate;
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -56,7 +68,8 @@ import java.time.LocalDate;
     public String toString() {
         return "Blog{" +
                 "id=" + id +
-                ", date=" + date +
+                ", title='" + title + '\'' +
+                ", date='" + date + '\'' +
                 ", text='" + text + '\'' +
                 '}';
     }

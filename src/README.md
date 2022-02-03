@@ -30,7 +30,7 @@ _Bocka för med ett **x** när du
 - [ ] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet
 - [x] Ingen information ska sparas i klienten
 - [ ] Om användaren försöker visa, ta bort, redigera eller ändra ett inlägg som inte finns ska det visas ett tydligt felmeddelande
-- [ ] Din kod ska sparas i versionshantering med Git
+- [x] Din kod ska sparas i versionshantering med Git
 
 
 # Checklista: Funktionalitet för Väl Godkänt

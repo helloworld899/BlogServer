@@ -27,9 +27,9 @@ _Bocka för med ett **x** när du
 - [x] Klientkomponenten ska vara ett textbaserat gränssnitt (CLI)
 - [x] Användaren ska kunna lista/lägga till/redigera/ta bort blogginlägg via API-förfrågningar till serverkomponenten
 - [x] Användaren ska kunna lista alla inlägg (ID och titel visas)
-- [ ] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet
+- [x] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet
 - [x] Ingen information ska sparas i klienten
-- [ ] Om användaren försöker visa, ta bort, redigera eller ändra ett inlägg som inte finns ska det visas ett tydligt felmeddelande
+- [x] Om användaren försöker visa, ta bort, redigera eller ändra ett inlägg som inte finns ska det visas ett tydligt felmeddelande
 - [x] Din kod ska sparas i versionshantering med Git
 
 

@@ -1,12 +1,18 @@
 package com.example.assignment;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
 public class BlogService {
+
+    private Logger logger;
 
     //Här skapar vi en Arraylist
     ArrayList<Blog> blogArray;
@@ -17,13 +23,13 @@ public class BlogService {
     public BlogService() {
         blogArray = new ArrayList<>();
         latestBlogID = 0;
+        logger = LoggerFactory.getLogger(BlogController.class);
     }
 
     //Listing all blogs
     public ArrayList<Blog> getBlogs() {
 
-        System.out.println("Listan av alla blogginlägg skickas nu till klienten");
-
+        logger.info("Listan av alla blogginlägg skickas nu till klienten");
         return blogArray;
     }
 
@@ -33,7 +39,11 @@ public class BlogService {
         latestBlogID++;
         newBlog.setId(latestBlogID);
         blogArray.add(newBlog);
+
+        logger.info("Lade till en blogginlägg med titel: " + newBlog.getTitle() + ". Content: " + newBlog.getText() + ". Datum: " + newBlog.getDate());
+
         return newBlog;
+
     }
 
 
@@ -48,7 +58,7 @@ public class BlogService {
 
 
     public Blog specificBlog(int id) {
-        System.out.println("Hämtar blogg med ID nummer " + id);
+
         Blog fetchedBlog = getBlogByID(id);
 
         return fetchedBlog;
@@ -82,14 +92,13 @@ public class BlogService {
 
             }
         }
-        System.out.println("Blogg med id nummer: " + id + " raderat");
         return new Blog();
     }
 
     //Ta bort allt i listan
     public void clearList() {
         blogArray.clear();
-        System.out.println("Alla blogginlägg i listan är nu borttagna");
+        logger.info("Alla blogginlägg i listan är nu borttagna");
     }
 
 

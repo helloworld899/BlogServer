@@ -1,41 +1,1 @@
-# Checklista: Funktionalitet för Godkänt
-
----
-_Bocka för med ett **x** när du
-är klar med varje del i checklistan_
----
-
-
-#### Planering:
-- [X] Du ska i serverkomponenten ha en fil som heter README.md där du listar minst 10 punkter med saker du behöver göra. Beskrivningarna kan vara korta men ska vara tydliga. Det ska tydligt gå att utläsa huruvida den punkten är avklarad eller inte.
-- [ ] Det är uppmuntrat att du använder dig av BDD-formuleringarna (”Given/when/then”)
-
-#### Serverkomponenten:
-- [X] Servern ska använda sig av Spring-ramverket och det är i servern som alla blogginlägg sparas
-- [x] Servern ska svara på API-förfrågningar för att lista inlägg, redigera inlägg, ta bort inlägg och visa specifikt inlägg.
-- [x] Adresserna till dessa API-förfrågningar ska vara följande:
-  - [x] /api/v1/blog/list – Lista alla inlägg
-  - [x] /api/v1/blog/view/<id> - Visa ett specifikt inlägg
-  - [x] /api/v1/blog/update/<id> - Ändra ett specifikt inlägg
-  - [x] /api/v1/blog/delete/<id> - Ta bort ett specifikt inlägg
-  - [x] /api/v1/blog/create – Lägg till ett nytt inlägg
-  - [x] Fler får läggas till om du känner ett behov av det
-  - [x] Varje förfrågan måste använda en lämplig HTTP-metod (GET, POST, PATCH et cetera)
-  - [x] Din kod ska sparas i versionhantering med Git
-
-#### Klientkomponenten:
-- [x] Klientkomponenten ska vara ett textbaserat gränssnitt (CLI)
-- [x] Användaren ska kunna lista/lägga till/redigera/ta bort blogginlägg via API-förfrågningar till serverkomponenten
-- [x] Användaren ska kunna lista alla inlägg (ID och titel visas)
-- [x] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet
-- [x] Ingen information ska sparas i klienten
-- [x] Om användaren försöker visa, ta bort, redigera eller ändra ett inlägg som inte finns ska det visas ett tydligt felmeddelande
-- [x] Din kod ska sparas i versionshantering med Git
-
-
-# Checklista: Funktionalitet för Väl Godkänt
-- [x] Du ska använda dig av Dependency Injection
-- [x] Du ska separera koden i en Service och en Controller
-- [x] Du ska skapa en Dockerfile och skriva instruktioner om hur serverkomponenten kan startas som en Docker-container, och klientkomponenten ska kunna ansluta till serverkomponenten.
-- [x] Du ska använda loggning med SLF4J och logga alla API-anrop
-
+# Checklista: Funktionalitet för Godkänt---_Bocka för med ett **x** när duär klar med varje del i checklistan_---#### Planering:- [X] Du ska i serverkomponenten ha en fil som heter README.md där du listar minst 10 punkter med saker du behöver göra. Beskrivningarna kan vara korta men ska vara tydliga. Det ska tydligt gå att utläsa huruvida den punkten är avklarad eller inte.---- [X] Det är uppmuntrat att du använder dig av BDD-formuleringarna (”Given/when/then”)_addBlog_- Scenario: Create a blog post- Given that I am asked to add a blog- When I give the details of title/content/date that are needed- Then blog creates successfully with a message "New blog entry added!"- Scenario: Create a blog without any information- Given that I am asked to add a blog- When I don't give the details of title/content/date  that are needed- Then blog gives an error message "Titel/Content/Date is empty, try write something"_printListOfBlogs_- Scenario: List all blog posts that has been added before- Given that I type in 1 in the menu- Then I will see full list of blogs that has been created with all its informationsuch as ID/Title/Content/Date- Scenario: Listing when the list is empty- Given that I type in 1 in the menu- When no blogs have been added at all before- Then I will receive a message "No blogs in the list... " from the Client _clearListOfBlogs_- Scenario: Clearing the list of all blog post that has been added before- Given that I type in 3 in the menu- When all blogs will be removed successfully and the blog list will be emptied- Then I will receive a message saying "List of blogs cleared" from the Client and "All blog postsin the list are now deleted" from the Server- Scenario: Clearing the list of blog post when Server is not connected- Given that I type in 3 in the menu- When the server is not connected - Then I will receive a message saying "Issue clearing list of blogs"_deleteBlog_- Scenario: Deleting blog by ID that exists- Given that I am asked to type in 4 in menu - Given I type in the ID number that exists in the list- When I type in the ID number that exists in the list- Then blog successfully deletes the blog with message "Blog ID: X has now been deleted"from the Client and the Server - Scenario: Deleting blog by ID that does not exist- Given that I am asked to type in 4 in menu- Given that I am asked to type in the Blog ID to remove- When I type in the ID number that does not exist in the list- Then HTTP status code will display 404 and display "No blog´with this ID or has been deleted" from the Client and "The Blog you want does not exist or has been deleted"from the Server_updateBlog_- Scenario: Updating blog by ID that exists- Given that I am asked to type in 5 in the menu- Given that I am asked to type in the blog ID I want to change- Given that I am asked to pick either title/content/date to change - When I give the new details of either title/content/date - Then blog will be updated successfully and HTTP status code will show 200- Scenario: Updating blog by ID that does not exist- Given that I am asked to type in 5 in the menu - Given that I am asked to type in the blog ID I want to change- When I type in an ID that does not exist - Then I will receive HTTP status code 404 with message "Issue updating Blog" fromt the Clientand "The Blog you want does not exist or has been deleted" from the Server_getBlogByID_- Scenario: Finding/searching for an ID within the list- Given that I am asked to type in 6 in the menu- Given that I am asked to type in the blog ID I want to find- When I type in whatever ID that I know exist within the blog list- Then that blog will be displayed with all its information such as ID/title/Content/Date- HTTP status will be shown 200 with message "Here is the blog you wanted" from the Client- Scenario: Finding/searching for an ID that does not exist within the list - Given that I am asked to type in 6 in the menu- Given that I am asked to type in the blog ID I want to find- When I type in whatever ID that does not exist within the blog list- Then HTTP status code will be 404 with a message "Issue finding the blog you wanted"from the Client and "The Blog you want does not exist or has been deleted" on the Server---#### Attributer:- [x] ID- [x] Titel- [x] Text- [x] Datum#### Serverkomponenten:- [X] Servern ska använda sig av Spring-ramverket och det är i servern som alla blogginlägg sparas- [x] Servern ska svara på API-förfrågningar för att lista inlägg, redigera inlägg, ta bort inlägg och visa specifikt inlägg.- [x] Adresserna till dessa API-förfrågningar ska vara följande:  - [x] /api/v1/blog/list – Lista alla inlägg  - [x] /api/v1/blog/view/<id> - Visa ett specifikt inlägg  - [x] /api/v1/blog/update/<id> - Ändra ett specifikt inlägg  - [x] /api/v1/blog/delete/<id> - Ta bort ett specifikt inlägg  - [x] /api/v1/blog/create – Lägg till ett nytt inlägg  - [x] Fler får läggas till om du känner ett behov av det  - [x] Varje förfrågan måste använda en lämplig HTTP-metod (GET, POST, PATCH et cetera)  - [x] Din kod ska sparas i versionhantering med Git#### Klientkomponenten:- [x] Klientkomponenten ska vara ett textbaserat gränssnitt (CLI)- [x] Användaren ska kunna lista/lägga till/redigera/ta bort blogginlägg via API-förfrågningar till serverkomponenten- [x] Användaren ska kunna lista alla inlägg (ID och titel visas)- [x] Användaren ska kunna efterfråga ett specifikt inlägg och läsa innehållet- [x] Ingen information ska sparas i klienten- [x] Om användaren försöker visa, ta bort, redigera eller ändra ett inlägg som inte finns ska det visas ett tydligt felmeddelande- [x] Din kod ska sparas i versionshantering med Git# Checklista: Funktionalitet för Väl Godkänt- [x] Du ska använda dig av Dependency Injection- [x] Du ska separera koden i en Service och en Controller- [x] Du ska skapa en Dockerfile och skriva instruktioner om hur serverkomponenten kan startas som en Docker-container, och klientkomponenten ska kunna ansluta till serverkomponenten.- [x] Du ska använda loggning med SLF4J och logga alla API-anrop

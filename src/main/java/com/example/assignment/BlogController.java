@@ -1,7 +1,6 @@
 package com.example.assignment;
 
 //Importerat paket
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +37,15 @@ public class BlogController {
 
 
         if (blog.getTitle() == "") {  // Ifall man försöker skapa en tom titel i klienten
-            logger.error("Titel is empty, try write something");
+            logger.error("Titel is empty for blog ID: " + newBlog.getId() + ", try write something");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (blog.getText() == "") {
-            logger.error("No Content, try write something");
+            logger.error("No Content for blog ID: " + newBlog.getId()+ ", try write something");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Ifall man försöker skapa en tom text i klienten osv...
         }
         if (blog.getDate() == "") {
-            logger.error("Pick a date");
+            logger.error("Pick a date for blog ID: " + newBlog.getId());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         } else {

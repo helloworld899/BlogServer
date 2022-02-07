@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 //Importerat paket
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class BlogController {
     private BlogService blogService; //Skapandet av service och controller
 
     //Skapar en konstruktor (Dependency Injection)
-
     @Autowired
     public BlogController(BlogService blogService) {
         this.blogService = blogService;
@@ -38,17 +38,20 @@ public class BlogController {
 
 
         if (blog.getTitle() == "") {  // Ifall man försöker skapa en tom titel i klienten
+            logger.error("Titel is empty, try write something");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if (blog.getText() == "") {
+            logger.error("No Content, try write something");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // Ifall man försöker skapa en tom text i klienten osv...
         }
         if (blog.getDate() == "") {
+            logger.error("Pick a date");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         } else {
-            //logger.info("Lade till en blogginlägg med titel: " + newBlog.getTitle() + ". Content: " + newBlog.getText() + ". Datum: " + newBlog.getDate());
-           return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
+            logger.info("Added a blog entry with Title: " + newBlog.getTitle() + ". Content: " + newBlog.getText() + ". Datum: " + newBlog.getDate());
+            return new ResponseEntity<>(newBlog, HttpStatus.CREATED);
         }
     }
 
@@ -56,11 +59,9 @@ public class BlogController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<ArrayList<Blog>> listAllBlogs() {
 
-       ArrayList<Blog> newBlog = blogService.getBlogs();
+        ArrayList<Blog> newBlog = blogService.getBlogs();
 
-      // logger.info("Listan av alla blogginlägg skickas nu till klienten");
-       return new ResponseEntity<>(newBlog, HttpStatus.OK);
-
+        return new ResponseEntity<>(newBlog, HttpStatus.OK);
     }
 
     //CRUD - Read
@@ -71,10 +72,10 @@ public class BlogController {
         Blog fetchedBlog = blogService.specificBlog(id);
 
         if (fetchedBlog == null) { // b) let's say we dont find the blog we want
-            logger.warn("The Blog you want does not exist or has been deleted");
+            logger.warn("The blog you want does not exist or has been deleted");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // b) then we can send another response saying its not found
         }
-        logger.info("Hämtar blogg med ID nummer " + id);
+        logger.info("Getting blog entry with ID: " + id);
         return new ResponseEntity<>(fetchedBlog, HttpStatus.OK); ///c ) if found, then we send a message saying OK.
     }
     /*istället för att returnera en blogginlägg direkt, så kan man istället säga att man returnerar en responseEntity
@@ -82,26 +83,24 @@ public class BlogController {
    */
 
 
-
     //Metod för att radera allt i listan
     @RequestMapping(value = "clear", method = RequestMethod.DELETE)
     public void clearAllBlogs() {
-       blogService.clearList();
+        blogService.clearList();
     }
 
     //Metod för att radera en specifik blogginlägg   | ...här tittade jag på metoden "lista alla blogginlägg"
     @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
-    private ResponseEntity <Blog> deleteBlogByID(@PathVariable("id") int id) {
+    private ResponseEntity<Blog> deleteBlogByID(@PathVariable("id") int id) {
 
         Blog fetchedBlog = blogService.deleteBlogByID(id);
 
-       // Blog fetchedBlog = getBlogByID(id); //skapar nytt objekt för att hitta ID nummer
-        if(fetchedBlog == null) {
-            logger.error("Blogginlägget finns inte eller har raderats");
+        if (fetchedBlog == null) {
+            logger.error("The blog you want does not exist or has been deleted");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        logger.info("Blogg med id nummer: " + id + " raderat");
+        logger.info("Blog entry with ID: " + id + " has been deleted");
         return new ResponseEntity(blogService.deleteBlogById(id), HttpStatus.OK);
     }
     //Först hämtar den fram inlägget man vill ta bort, sem måste man klicka igen på send via Insomnia för att
@@ -114,8 +113,8 @@ public class BlogController {
 
         Blog fetchedBlog = blogService.updateBlogByID(id);
 
-        if(fetchedBlog == null) {
-            logger.error("Blogginlägget finns inte eller har raderats");
+        if (fetchedBlog == null) {
+            logger.error("The blog you want does not exist or has been deleted");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -131,7 +130,7 @@ public class BlogController {
             fetchedBlog.setDate(blogChanges.getDate());
         }
 
-        logger.info("Blog " + id + " has been updated");
+        logger.info("Blog entry with ID: " + id + " has been updated");
         return new ResponseEntity<>(fetchedBlog, HttpStatus.OK);
 
     }

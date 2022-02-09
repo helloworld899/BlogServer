@@ -1,9 +1,11 @@
 package com.example.assignment;
 
 //Importerad packet
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 
 @Service
@@ -24,16 +26,18 @@ public class BlogService {
         logger = LoggerFactory.getLogger(BlogService.class);
     }
 
-    //Listing all blogs
+    //Listar alla blogginlägg
     public ArrayList<Blog> getBlogs() {
 
         logger.info("List of all blog entries are now sent to the Client");
         return blogArray;
     }
 
-    //Create a blog
+    //Skapar ett blogginlägg
     public Blog createMyBlog(Blog newBlog) {
 
+        // Ökar ID:t med 1 innan vi lägger in bloggen
+        // I verkligheten senare så görs detta automatiskt av en databas
         latestBlogID++;
         newBlog.setId(latestBlogID);
         blogArray.add(newBlog);
@@ -43,16 +47,16 @@ public class BlogService {
     }
 
 
-    //Update a blog
-    public Blog updateBlogByID(int id) {
+    // Tillhör updateBlogByID metoden i BlogController
+    public Blog updateBlog(int id) {
 
-        Blog fetchedBlog = getBlogByID(id);
-        specificBlog(id);
-
-        return fetchedBlog;
+        // Blog fetchedBlog = getBlogByID(id); --- fetchedBlog är redundant
+        /* specificBlog(id); ---Här skulle vi också kunna bara anropa metoden specifikBlog(id) inne här
+        och returnera specificBlog(id) */
+        return getBlogByID(id);
     }
 
-
+    // Tillhör specificBlog metoden i BlogController
     public Blog specificBlog(int id) {
 
         Blog fetchedBlog = getBlogByID(id);
@@ -60,7 +64,7 @@ public class BlogService {
         return fetchedBlog;
     }
 
-    //tillhör view a specific blog by ID
+
     public Blog getBlogByID(int id) {
 
         for (int i = 0; i < blogArray.size(); i++) {
@@ -72,13 +76,14 @@ public class BlogService {
         return null;
     }
 
-    public Blog deleteBlogByID(int id) {
-        Blog fetchedBlog = getBlogByID(id);  //skapar nytt objekt för att hitta ID nummer
+    public Blog deleteBlog(int id) {
+        Blog fetchedBlog = getBlogByID(id);  // Skapar nytt objekt för att hitta ID numret m.h.a. metoden getBlogByID
 
         return fetchedBlog;
     }
 
-    //tillhör Ta bort blogg med ID
+    // Tillhör deleteBlogByID metoden
+    // Metod för att ta bort självaste ID numret
     public Blog deleteBlogById(int id) {
 
         for (int i = 0; i < blogArray.size(); i++) {
@@ -91,7 +96,7 @@ public class BlogService {
         return new Blog();
     }
 
-    //Ta bort allt i listan
+    // Ta bort allt i listan
     public void clearList() {
         blogArray.clear();
         logger.info("All blog entries in the list are now deleted");

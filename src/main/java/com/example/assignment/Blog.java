@@ -8,8 +8,7 @@ public class Blog {
     private String date;
     private String text;
 
-    //Konstruktorer
-
+    // 3 Konstruktorer skapta
     public Blog() {
     }
 
